@@ -62,6 +62,7 @@ public class ArticleController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
+
         Optional<Article> optionalArticle = articleRepository.findById(id);
         if (!optionalArticle.isEmpty()) {
             model.addAttribute("article", optionalArticle.get());
