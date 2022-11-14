@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### properties ###
-application-aws.yml
+src/main/application-aws.yml
