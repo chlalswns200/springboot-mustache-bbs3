@@ -1,5 +1,6 @@
 package com.example.springbootmustachebbs3.domain;
 
+import com.example.springbootmustachebbs3.domain.dto.HospitalResponse;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -21,5 +22,12 @@ public class Hospital {
     private Integer totalNumberOfBeds;
     private String businessTypeName;
     private Float totalAreaSize;
+
+    public static HospitalResponse of(Hospital hospital) {
+        return new HospitalResponse(hospital.getId(),
+                hospital.getRoadNameAddress(), hospital.getHospitalName(),
+                hospital.getPatientRoomCount(), hospital.getTotalNumberOfBeds(), hospital.getBusinessTypeName(),
+                hospital.getTotalAreaSize());
+    }
 
 }
