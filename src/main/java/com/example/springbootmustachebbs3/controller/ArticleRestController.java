@@ -2,12 +2,9 @@ package com.example.springbootmustachebbs3.controller;
 
 import com.example.springbootmustachebbs3.domain.Article;
 import com.example.springbootmustachebbs3.domain.dto.ArticleDto;
-import com.example.springbootmustachebbs3.repository.ArticleRepository;
+import com.example.springbootmustachebbs3.service.ArticleService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -15,17 +12,16 @@ import java.util.Optional;
 @RequestMapping("/api/v1/articles")
 public class ArticleRestController {
 
-    private final ArticleRepository articleRepository;
+    private final ArticleService articleService;
 
-    public ArticleRestController(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
+    public ArticleRestController(ArticleService articleService) {
+        this.articleService = articleService;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleDto> get(@PathVariable Long id) {
-        Optional<Article> byId = articleRepository.findById(id);
-        Article article = byId.get();
-        ArticleDto articleDto = new ArticleDto(article.getId(), article.getTitle(), article.getContent());
-        return ResponseEntity.ok().body(articleDto);
+        ArticleDto articleById = articleService.getArticleById(id);
+        return ResponseEntity.ok().body(articleById);
+
     }
 }
