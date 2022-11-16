@@ -1,6 +1,8 @@
 package com.example.springbootmustachebbs3.service;
 
 import com.example.springbootmustachebbs3.domain.Article;
+import com.example.springbootmustachebbs3.domain.dto.ArticleAddRequest;
+import com.example.springbootmustachebbs3.domain.dto.ArticleAddResponse;
 import com.example.springbootmustachebbs3.domain.dto.ArticleDto;
 import com.example.springbootmustachebbs3.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
@@ -21,5 +23,10 @@ public class ArticleService {
         Article article = byId.get();
         ArticleDto articleDto = new ArticleDto(article.getId(), article.getTitle(), article.getContent());
         return articleDto;
+    }
+
+    public ArticleAddResponse add(ArticleAddRequest dto) {
+        Article save = articleRepository.save(dto.toEntity(dto));
+        return new ArticleAddResponse(save.getId(),save.getTitle(),save.getContent());
     }
 }
