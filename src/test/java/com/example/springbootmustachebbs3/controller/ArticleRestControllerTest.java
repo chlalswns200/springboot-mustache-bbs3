@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -59,11 +60,11 @@ class ArticleRestControllerTest {
         ArticleAddRequest dto = new ArticleAddRequest("제목입니다100", "내용입니다.100");
         ObjectMapper objectMapper = new ObjectMapper();
 
-        given(articleService.add(dto)).willReturn(new ArticleAddResponse(100l, dto.getTitle(), dto.getContent()));
+        given(articleService.add(any())).willReturn(new ArticleAddResponse(1l, dto.getTitle(), dto.getContent()));
 
         mockMvc.perform(post("/api/v1/articles/new")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new ArticleAddRequest("제목입니다", "내용입니다.")))
+                        .content(objectMapper.writeValueAsBytes(new ArticleAddRequest("제목입니다100", "내용입니다.100")))
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
@@ -71,6 +72,6 @@ class ArticleRestControllerTest {
                 .andExpect(jsonPath("$.content").exists())
                 .andDo(print());
 
-        verify(articleService).add(dto);
+        verify(articleService).add(any());
     }
 }
