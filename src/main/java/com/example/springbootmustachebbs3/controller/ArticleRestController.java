@@ -26,7 +26,7 @@ public class ArticleRestController {
         return ResponseEntity.ok().body(articleById);
     }
 
-    @PostMapping("/post")
+    @PostMapping("/new")
     public ResponseEntity<ArticleAddResponse> join(@RequestBody ArticleAddRequest dto) {
         ArticleAddResponse add = articleService.add(dto);
         return ResponseEntity.ok().body(add);

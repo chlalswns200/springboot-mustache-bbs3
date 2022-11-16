@@ -26,7 +26,7 @@ public class ArticleService {
     }
 
     public ArticleAddResponse add(ArticleAddRequest dto) {
-        Article save = articleRepository.save(dto.toEntity(dto));
+        Article save = articleRepository.save(dto.toEntity());
         return new ArticleAddResponse(save.getId(),save.getTitle(),save.getContent());
     }
 }
