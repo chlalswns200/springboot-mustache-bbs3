@@ -1,10 +1,16 @@
 package com.example.springbootmustachebbs3.domain;
 
 import com.example.springbootmustachebbs3.domain.dto.HospitalResponse;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Getter
 @Table(name ="nation_wide_hospitals")
