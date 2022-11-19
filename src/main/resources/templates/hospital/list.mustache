@@ -1,28 +1,36 @@
-{{>layouts/header}}
-<form action="/hospitals" method="get">
-    지역: <input type="text" name="keyword" />
-    <input type="submit" />
-</form>
-<table class="table table-hover">
+{{>layout/header}}
+<div>
+    <form class="d-flex" role="search" action="/hospitals" , method="get">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
+<table class="table table-striped">
     <thead>
     <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Title</th>
-        <th scope="col">Content</th>
+        <th scope="col">No</th>
+        <th scope="col">이름</th>
+        <th scope="col">도로명주소</th>
     </tr>
     </thead>
     <tbody>
     {{#hospitals}}
         <tr>
             <th scope="row">{{id}}</th>
-            <td>{{hospitalName}}</td>
+            <td><a href="/hospitals/{{id}}">{{hospitalName}}</a></td>
             <td>{{roadNameAddress}}</td>
         </tr>
     {{/hospitals}}
     </tbody>
 </table>
-<ul class="pagination justify-content-center">
-    <a class="page-item"><a class="page-link" href="?page={{previous}}">이전</a></li>
-    <li class="page-item"><a class="page-link" href="?page={{next}}">다음</a></li>
-</ul>
-{{>layouts/footer}}
+<div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+    {{#keyword}}
+        <a href="?page={{previous}}&keyword={{keyword}}" type="button" class="btn btn-outline-dark">Previous</a>
+        <a href="?page={{next}}&keyword={{keyword}}" type="button" class="btn btn-outline-dark">Next</a>
+    {{/keyword}}
+    {{^keyword}}
+        <a href="?page={{previous}}" type="button" class="btn btn-outline-dark">Previous</a>
+        <a href="?page={{next}}" type="button" class="btn btn-outline-dark">Next</a>
+    {{/keyword}}
+</div>
+{{>layout/footer}}

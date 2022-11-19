@@ -28,15 +28,14 @@ public class HospitalController {
     }
 
     @GetMapping("")
-    public String list(@RequestParam String keyword,Pageable pageable, Model model) {
-
-        log.info("keyword:{}",keyword);
-        Page<Hospital> byRoadNameAddressContaining = hospitalRepository.findByRoadNameAddressContaining(keyword, pageable);
-
-        model.addAttribute("hospitals",byRoadNameAddressContaining);
+    public String getHospitalByKeyword(@RequestParam(required = false) String keyword, Model model, Pageable pageable) {
+        log.info("keyword:{}", keyword);
+        Page<Hospital> hospitals = hospitalRepository.findByRoadNameAddressContaining(keyword, pageable);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("hospitals", hospitals);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
-
         return "hospital/list";
+
     }
 }
