@@ -11,6 +11,7 @@ import java.util.List;
 
 @SpringBootTest
 class HospitalRepositoryTest {
+
     @Autowired
     HospitalRepository hospitalRepository;
 
@@ -49,6 +50,16 @@ class HospitalRepositoryTest {
 
         for (Hospital hospital : byTotalNumberOfBedsBetween) {
             System.out.println(hospital.getHospitalName() + " " + hospital.getPatientRoomCount());
+        }
+    }
+
+    @Test
+    void findByRoadNameAddressIn2() {
+        List<Hospital> hospitals = hospitalRepository.findByRoadNameAddressContaining("송파구");
+        System.out.println(hospitals.size());
+        System.out.println("hello world!");
+        for (Hospital hospital : hospitals) {
+            System.out.println("hospital.getRoadNameAddress() = " + hospital.getRoadNameAddress());
         }
     }
 }
